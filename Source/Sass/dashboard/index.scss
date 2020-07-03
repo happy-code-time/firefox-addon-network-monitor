@@ -1,0 +1,182 @@
+@import "../globals/declarations";
+
+@import "../shared/app";
+
+@import "../shared/sidebar";
+
+@import "../shared/content";
+
+@import "../shared/inputAnimation";
+
+@import "../shared/inputSuggestion";
+
+@import "../shared/nodata";
+
+@import "../shared/FullScreenList";
+
+@import "../shared/errorMessagesLearnMore";
+
+@import "../shared/FullScreenList";
+
+@import "../shared/selectWrapper";
+
+@import '../shared/box-languages';
+
+@import "./tabs";
+
+@import "./Code";
+
+html,
+body,
+#app {
+  min-width: 320px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+#app {
+
+  *::selection {
+    background-color: $dodgerblue;
+    color: $white;
+  }
+  
+  .Content .head .popup-box h1 {
+    font-size: 0.923rem;
+  }
+
+  .FullScreenList{
+    .holder-ul{
+      padding-bottom: 50px;
+    }
+  }
+
+  .copied {
+    animation: scaleItCopyToClipboard 500ms infinite ease-in-out;
+  }
+
+  .RequestsCode{
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .FullScreenLoadingMin{
+      position: initial;
+
+      .spinner{
+        top: 20vh;
+      }
+    }
+  }
+
+  .back-to-list{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgb(122, 122, 122);
+    display: block;
+    margin: 10px;
+    color: $white;
+    transition-duration: $default_transition;
+  }
+
+  .back-to-list:hover{
+    background-color: rgb(99, 99, 99);
+    cursor: pointer;
+  }
+
+  .code-box-holder {
+    width: calc(100% - 20px);
+    border-radius: 5px;
+    margin: 10px;
+    border: 1px solid $border-color;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    min-height: 150px;
+    text-align: left;
+
+    h1 {
+      text-align: left !important;
+      border-bottom: 2px solid $border-color;
+      padding: 20px 10px;
+      background-color: #f9f9f9;
+      position: relative;
+      z-index: 1;
+      font-size: 0.87rem !important;
+      letter-spacing: 0.122rem;
+      border-radius: 5px;
+      width: 100%;
+      margin: 0;
+    }
+
+    .code-box {
+      width: calc(100% - 20px);
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid $border-color;
+      box-sizing: border-box;
+      padding: 20px 10px;
+      overflow: hidden;
+      display: inline-block;
+      position: relative;
+      min-height: 215px;
+      background-color: rgba(60, 179, 113, 0.15);
+
+      .Code {
+        width: calc(100% - 60px);
+
+        li {
+          list-style: none;
+          line-height: 20px;
+          letter-spacing: 0.11rem;
+          font-size: 0.87rem;
+        }
+
+        .line-number {
+          width: 50px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          color: rgba(69, 69, 69, 0.4);
+        }
+        .code {
+          width: calc(100% - 50px);
+        }
+      }
+
+      .export-options {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 60px;
+        height: 100%;
+        background-color: rgb(59, 59, 59);
+        padding-top: 10px;
+        z-index: 2;
+
+        i {
+          width: 40px;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          border-radius: 50%;
+          background-color: transparent;
+          display: block;
+          margin: 5px auto;
+          color: $white;
+          transition-duration: $default_transition;
+        }
+
+        i:hover {
+          background-color: rgb(122, 122, 122);
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

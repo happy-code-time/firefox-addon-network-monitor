@@ -1,0 +1,47 @@
+@import '../globals/declarations.scss';
+
+.Requests{
+  overflow: hidden;
+  background-image: url('https://www.chat-manager.j.pl/public/images/bert-sz-rhNff6hB41s-unsplash.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  background-color: rgba(0,0,0, .5);
+  background-blend-mode: darken;
+
+  h1{
+    font-size: 33px !important;
+    margin: 50px 0;   
+    color: $white !important;
+  }
+
+  .images-count{
+    line-height: 150px;
+    font-size: 43px !important;
+    animation: scaleIt 500ms linear ease-in;
+    color: $dodgerblue;
+    font-weight: bold;
+  }
+
+  .link {
+    width: 230px;
+    margin: 30px auto;
+    display: block;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    text-align: center;
+    color: #212529;
+    font-size: 0.87rem;
+    text-decoration: none;
+    border-radius: 5px;
+    border: 1px solid $border-color;
+    background-color: $dodgerblue;
+    color: $white;
+    box-shadow: 0px 0px 13px transparent;
+    transition-duration: $default_transition;
+  }
+
+  .link:hover {
+    box-shadow: 0px 0px 13px $dodgerblue;
+  }
+}

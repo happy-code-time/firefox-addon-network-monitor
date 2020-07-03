@@ -1,0 +1,264 @@
+@import '../globals/declarations';
+
+@import '../globals/globals';
+
+@import '../shared/keyframes';
+
+@import '../shared/app';
+
+@import '../shared/sidebar';
+
+@import '../shared/content';
+
+@import '../shared/nodata';
+
+@import '../shared/FullScreenList';
+
+@import '../shared/errorMessagesLearnMore';
+
+@import '../shared/AddonNotAvailable';
+
+@import '../shared/globalErrors';
+
+@import '../shared/inputAnimation';
+
+@import '../shared/box-languages';
+
+@import './requestsPopup';
+
+@import './requests';
+
+html,
+body {
+  border-radius: 5px;
+}
+
+html,
+body,
+#app,
+.Content {
+  overflow: hidden;
+  min-width: 320px;
+}
+
+#app {
+
+  *::selection {
+    background-color: $dodgerblue;
+    color: $white;
+  }
+  
+  .Content,
+  .Content.minified,
+  .Main {
+    width: 100%;
+  }
+
+  .canvas{
+    margin: 30px 0;
+    padding: 20px 0;
+  }
+
+  .code-box-holder {
+    width: calc(100% - 20px);
+    border-radius: 5px;
+    margin: 10px;
+    border: 1px solid $border-color;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    min-height: 50px;
+    text-align: left;    
+
+    h1 {
+      text-align: left !important;
+      border-bottom: 2px solid $border-color;
+      padding: 10px;
+      background-color: #f9f9f9;
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: 0.87rem !important;
+      letter-spacing: 0.122rem;
+      border-radius: 5px;
+      width: 100%;
+    }
+  }
+
+  .copied {
+    animation: scaleItCopyToClipboard 700ms forwards ease-in-out;
+  }
+
+  .button-action {
+    display: inline-block;
+    text-align: center;
+    font-size: 0.87rem;
+    border-radius: 3px;
+  }
+
+  .clipboard{
+    color: $dodgerblue;
+  }
+
+  .clipboard:hover{
+    cursor: pointer;
+  }
+
+  /*
+   * Input animation
+   */
+   .single-box {
+    padding:10px 0;
+  }
+
+  .NoDataAvailable {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 50px;
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+
+    img {
+      max-height: 165px;
+      display: block;
+      margin: 40px auto;
+    }
+
+    h1 {
+      padding: 30px 0;
+      color: #72777a;
+    }
+
+    .dashboard-link {
+      width: 230px;
+      margin: 30px auto;
+      display: block;
+      box-sizing: border-box;
+      padding: 0 20px;
+      text-align: center;
+      font-size: 0.87rem;
+      text-decoration: none;
+      border-radius: 5px;
+      border: 1px solid $border-color;
+      background-color: $dodgerblue;
+      color: $white;
+      box-shadow: 0px 0px 13px transparent;
+      transition-duration: $default_transition;
+      height: 40px;
+      line-height: 40px;
+    }
+
+    .dashboard-link:hover {
+      cursor: pointer;
+      box-shadow: 0px 0px 13px $dodgerblue;
+    }
+  }
+
+  .Content {
+    height: calc(100vh - 50px);
+  }
+
+  .ContentStaticHeight {
+    overflow-y: auto;
+    max-height: calc(100% - 50px);
+    height: auto;
+    padding-bottom: 20px;
+  }
+
+  .loading-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    z-index: 1;
+    background: transparent;
+  }
+
+  .loading-animation:after {
+    content: '';
+    width: 40%;
+    height: 4px;
+    background: linear-gradient(to right, $white 0%, $red 30%, $red 70%, $white 100%);
+    display: block;
+    position: absolute;
+    top: 0;
+    animation: animateLoadingChatDiv 1500ms linear infinite;
+  }
+
+  /**/
+  .SideBar {
+    width: $popupMenuWidth;
+  }
+
+  .SideBar.SideBar-min {
+    width: $popupMenuWidth-min;
+  }
+
+  .SideBar.SideBar-min:hover {
+    width: $popupMenuWidth;
+  }
+
+  .Content {
+    width: calc(100% - #{$popupMenuWidth});
+    left: $popupMenuWidth;
+  }
+
+  .Content.Content-min {
+    width: calc(100% - #{$popupMenuWidth-min});
+    left: $popupMenuWidth-min;
+  }
+
+  .Content.minified {
+    left: 0;
+  }
+}
+
+.FullScreenList {
+  .span-close {
+    position: absolute;
+    top: 3px;
+    right: 20px;
+    color: $white;
+    font-size: 3rem;
+  }
+
+  .span-close:hover {
+    cursor: pointer;
+    color: $red;
+  }
+
+  .holder-ul {
+    min-width: 250px;
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    border: none;
+  }
+
+  .no-data {
+    max-width: 90%;
+    margin: 0 5%;
+    height: 50px;
+    line-height: 50px;
+    color: rgba(0, 0, 0, 0.77);
+    text-align: center;
+  }
+
+  ul {
+    li {
+      min-width: 360px;
+      max-width: 500px;
+      border-bottom: 1px solid $border-color;
+    }
+    li:hover {
+      cursor: pointer;
+      background-color: rgba(199, 199, 199, 0.2);
+    }
+  }
+}
+

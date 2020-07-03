@@ -1,0 +1,43 @@
+@import '../globals/declarations.scss';
+
+.paging {
+  background-color: #f9fafb;
+  display: block;
+  min-height: 50px;
+  box-sizing: border-box;
+  padding: 5px 20px;
+  border-bottom: 1px solid $border-color;
+
+  .buttons {
+    display: block;
+    width: 110px;
+    margin: 0 auto;
+    transform: rotateZ(180deg);
+  }
+
+  .prev-button,
+  .next-button {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 0.75rem;
+    margin: 0 10px;
+    border-radius: 3px;
+    background-color: #63ceca;
+    color: $white;
+    box-shadow: 0px 0px 8px transparent;
+  }
+
+  .prev-button:hover,
+  .next-button:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 8px #63ceca;
+  }
+
+  .prev-button.deactivated,
+  .next-button.deactivated {
+    color: rgba(69, 69, 69, 0.1);
+  }
+}
