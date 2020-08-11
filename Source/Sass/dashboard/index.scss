@@ -22,9 +22,17 @@
 
 @import '../shared/box-languages';
 
+@import '../shared/nodata';
+
 @import "./tabs";
 
 @import "./Code";
+
+@import "./backToTop";
+
+@import "./website--request";
+
+@import "./rr-loadingboxtop";
 
 html,
 body,
@@ -57,7 +65,8 @@ body {
     animation: scaleItCopyToClipboard 500ms infinite ease-in-out;
   }
 
-  .RequestsCode{
+  .RequestsCode,
+  .Favourites{
     position: relative;
     width: 100%;
     height: 100%;
@@ -67,6 +76,14 @@ body {
 
       .spinner{
         top: 20vh;
+      }
+    }
+  }
+
+  .Favourites{
+    .tabs-active {
+      .right{
+        width: 100%;
       }
     }
   }
@@ -90,7 +107,7 @@ body {
   }
 
   .code-box-holder {
-    width: calc(100% - 20px);
+    width: calc(100% - 10px);
     border-radius: 5px;
     margin: 10px;
     border: 1px solid $border-color;
@@ -127,7 +144,7 @@ body {
       min-height: 215px;
       background-color: rgba(60, 179, 113, 0.15);
 
-      .Code {
+      .code {
         width: calc(100% - 60px);
 
         li {
@@ -146,6 +163,9 @@ body {
         }
         .code {
           width: calc(100% - 50px);
+          line-height: 20px;
+          letter-spacing: 0.11rem;
+          white-space: pre-wrap;
         }
       }
 

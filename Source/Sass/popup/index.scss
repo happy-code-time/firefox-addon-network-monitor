@@ -54,6 +54,20 @@ body,
     width: 100%;
   }
 
+  .SideBar{
+    .menu{
+
+      .icon i{
+        color: rgb(39,39,39);
+      }
+
+      .single-entry:hover{
+        cursor: pointer;
+        background-color: rgba(222,222,222,.2);
+      }
+    }
+  }
+
   .canvas{
     margin: 30px 0;
     padding: 20px 0;

@@ -71,12 +71,37 @@ gulp.task('copy:html', function (done) {
     done();
 });
 
+
+/**
+ * Copy background file
+ */
+gulp.task('copy:bg', function (done) {
+    gulp.src([
+        './Source/Background/background.js'
+    ])
+    .pipe(gulp.dest('./Distribution/Background/'));
+    done();
+});
+
+/**
+ * Copy content file
+ */
+gulp.task('copy:c', function (done) {
+    gulp.src([
+        './Source/Content/content.js'
+    ])
+    .pipe(gulp.dest('./Distribution/Content/'));
+    done();
+});
+
 gulp.task('compile', function (callback) {
     runSequence(
         [
             'clean',
             'copy:css',
-            'copy:html'
+            'copy:html',
+            'copy:bg',
+            'copy:c'
         ],
         callback);
 });

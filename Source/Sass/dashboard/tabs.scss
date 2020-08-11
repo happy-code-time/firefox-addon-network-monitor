@@ -11,6 +11,11 @@
     white-space: nowrap;
   }
 
+  a{
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.77);
+  }
+
   .single-tab {
     width: calc(100% - 40px);
     height: 300px;
@@ -78,21 +83,14 @@
 
   @media screen and (min-width: $media-break) {
     .single-tab {
-      width: calc(50% - 40px);
-      height: 300px;
-    }
-  }
-
-  @media screen and (min-width: 1400px) {
-    .single-tab {
-      width: calc(33% - 40px);
+      width: calc(30% - 20px);
       height: 300px;
     }
   }
 
   .single-tab:hover {
     cursor: pointer;
-    box-shadow: 0px 0px 6px $red;
+    box-shadow: 0px 0px 6px $dodgerblue-light;
   }
 }
 
@@ -268,7 +266,7 @@
     width: calc(100% - 230px);
     min-height: calc(100vh - 250px);
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     box-sizing: border-box;
     border-left: 1px solid $border-color;
 
@@ -423,8 +421,45 @@
       position: relative;
       text-align: center;
       transition-duration: $default_transition;
-      background-color: rgba(99, 99, 99, 0.15);
-      min-height: 300px;
+      background-color: rgba(222,222,222,.4);
+      min-height: 250px;
+
+      .store,
+      .stored{
+        color: $green;
+        display: block;
+        float: left;
+        margin: 5px 10px;
+        width: 20px;
+      }
+
+      .store:hover,
+      .stored:hover{
+        cursor: pointer;
+      }
+  
+      .excluded{
+        position: absolute;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        background-color: rgba(39,39,39,.39);
+      }
+  
+      .excluded-url{
+        display: block;
+        float: right;
+        margin: 5px 10px;
+        width: 20px;
+        position: relative;
+        z-index: 5;
+      }
+      
+      .excluded-url:hover{
+        cursor: pointer;
+      }
 
       .content {
         width: calc(100% - 60px);
@@ -439,7 +474,7 @@
         top: 0;
         width: 60px;
         height: 100%;
-        background-color: rgb(59, 59, 59);
+        background-color: $dodgerblue;
         padding: 10px 0 20px 0;
         z-index: 2;
 
@@ -460,7 +495,7 @@
 
         i:hover,
         a:hover {
-          background-color: rgb(122, 122, 122);
+          background-color: rgba(222, 222, 222, .4);
           cursor: pointer;
         }
       }

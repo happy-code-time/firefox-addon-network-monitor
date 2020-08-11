@@ -46,13 +46,18 @@
       i {
         line-height: 30px;
         box-sizing: border-box;
-        padding-left: 20px;
+        padding-left: 10px;
         font-size: 0.87rem;
+        display: inline-block;
+        overflow: auto;
+        word-wrap: none;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       i{
         font-size: 0.753rem;
-        line-height: 3px;
+        line-height: 15px;
       }
     }
   }

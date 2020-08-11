@@ -12,6 +12,12 @@ import GlobalMessages from '../AppFiles/Modules/Modules/GlobalMessages';
 
 import Tabs from './pages/Tabs';
 
+import External from './pages/External';
+
+import Details from './pages/Details';
+
+import Stored from './pages/Stored';
+
 import WebsiteContainer from '../AppFiles/Modules/Modules/WebsiteContainer';
 
 import Menu from '../AppFiles/Modules/Menu';
@@ -96,12 +102,19 @@ class App extends Component {
                   data={
                     [
                       {
-                        attributes: {
-                          title: this.translations.menu_title_home,
-                        },
                         text: this.translations.menu_text_home,
-                        icon: <i className='fas fa-user' />,
+                        icon: <i className='fas fa-window-restore' />,
                         href: `${addonPrefixDashboard()}#/`,
+                      },
+                      {
+                        icon: <i className="fas fa-database" />,
+                        text: this.translations.menu_text_images_favourites,
+                        href: `${addonPrefixDashboard()}#/stored`,
+                      },
+                      {
+                        text: this.translations.menu_3,
+                        icon: <i className="fas fa-globe" />,
+                        href: `${addonPrefixDashboard()}#/external`,
                       }
                     ]
                   }
@@ -146,6 +159,9 @@ class App extends Component {
             <HashRouter>
               <Switch>
                 <Route exact path="/" component={Tabs} />
+                <Route exact path="/external" component={External} />
+                <Route exact path="/details" component={Details} />
+                <Route exact path="/stored" component={Stored} />
               </Switch>
             </HashRouter>
           }

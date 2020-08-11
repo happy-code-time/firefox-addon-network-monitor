@@ -112,7 +112,7 @@ class Home extends React.Component
                         <a
                             className="link"
                             href={`${addonPrefixDashboard()}#/?tabid=${tabid}`}
-                            onClick={(e) => this.openDashboard(`${addonPrefixDashboard()}#/?tabid=${tabid}`)}
+                            onClick={(e) => this.openDashboard(`${addonPrefixDashboard()}#/details?tab=${tabid}`)}
                         >
                             {
                                 this.translations.popup_text

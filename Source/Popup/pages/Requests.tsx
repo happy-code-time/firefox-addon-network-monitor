@@ -94,54 +94,10 @@ class Requests extends React.Component<WebsiteContainerProps> {
     saveToTxtFile(data) {
         try {
             var blob = new Blob([data], { type: "application/txt;charset=utf-8" });
-            FileSaver.saveAs(blob, `NetworkMonitor_DavidJanitzek_${customKey()}.txt`);
+            FileSaver.saveAs(blob, `NetworkMonitor_${customKey()}.txt`);
         } catch (error) {
             var blob = new Blob([`Error while creating TXT file. Error message: ${error}.`], { type: "application/txt;charset=utf-8" });
-            FileSaver.saveAs(blob, `NetworkMonitor_DavidJanitzek_${customKey()}.txt`);
-        }
-    }
-
-    saveToTxtFileAll() {
-        let { filteredData } = this.state;
-
-        if (filteredData.length) {
-            filteredData = filteredData.join("\n\n");
-
-            try {
-                var blob = new Blob([filteredData], { type: "application/txt;charset=utf-8" });
-                FileSaver.saveAs(blob, `NetworkMonitor_DavidJanitzek_${customKey()}.txt`);
-            } catch (error) {
-                var blob = new Blob([`Error while creating TXT file. Error message: ${error}.`], { type: "application/txt;charset=utf-8" });
-                FileSaver.saveAs(blob, `NetworkMonitor_DavidJanitzek_${customKey()}.txt`);
-            }
-        }
-        else {
-            addToStore('Empty list cannot be exported to TXT file', -1);
-        }
-    }
-
-    saveToTxtFileAllInfo() {
-        let { filteredDataAll } = this.state;
-        const stringified = [];
-
-        if (filteredDataAll.length) {
-
-            filteredDataAll.map(o => {
-                stringified.push(JSON.stringify(o))
-            });
-
-            filteredDataAll = stringified.join("\n\n");
-
-            try {
-                var blob = new Blob([filteredDataAll], { type: "application/txt;charset=utf-8" });
-                FileSaver.saveAs(blob, `NetworkMonitor_DavidJanitzek_${customKey()}.txt`);
-            } catch (error) {
-                var blob = new Blob([`Error while creating TXT file. Error message: ${error}.`], { type: "application/txt;charset=utf-8" });
-                FileSaver.saveAs(blob, `NetworkMonitor_DavidJanitzek_${customKey()}.txt`);
-            }
-        }
-        else {
-            addToStore('Empty list cannot be exported to TXT file', -1);
+            FileSaver.saveAs(blob, `NetworkMonitor_${customKey()}.txt`);
         }
     }
 
@@ -160,7 +116,7 @@ class Requests extends React.Component<WebsiteContainerProps> {
                         if (undefined !== parsedDatadata && undefined !== parsedDatadata[`${tab.id}`]) {
 
                             let requests = parsedDatadata[`${tab.id}`];
-                            
+
                             this.setState({
                                 all: requests,
                                 requests: requests.length,
@@ -203,40 +159,24 @@ class Requests extends React.Component<WebsiteContainerProps> {
 
                 booleanStorageMappingJsx.push(
                     <div key={customKey()} className="code-box-holder">
+                        {
+                            document.queryCommandSupported &&
+                            <i
+                                className="fas fa-paste button-action clipboard url-action"
+                                onClick={(e) => copyToClipBoard(e, url, undefined)}
+                                title={this.translations.action_title_copyToClipboard_single}
+                            ></i>
+                        }
+                        <i
+                            className="fas fa-subscript button-action clipboard url-action"
+                            onClick={(e) => this.saveToTxtFile(url)}
+                            title={this.translations.export_link_to_txt_file}
+                        ></i>
                         <h1>
                             {
                                 url
                             }
                         </h1>
-                        <ul key={customKey()} className="ul-description">
-                            <li>
-                                {
-                                    document.queryCommandSupported &&
-                                    <i
-                                        className="fas fa-paste button-action clipboard"
-                                        onClick={(e) => copyToClipBoard(e, url, undefined)}
-                                    ></i>
-                                }
-                            </li>
-                            <li>
-                                {
-                                    this.translations.action_title_copyToClipboard_single
-                                }
-                            </li>
-                        </ul>
-                        <ul key={customKey()} className="ul-description">
-                            <li>
-                                <i
-                                    className="fas fa-subscript button-action"
-                                    onClick={(e) => this.saveToTxtFile(url)}
-                                ></i>
-                            </li>
-                            <li>
-                                {
-                                    this.translations.export_link_to_txt_file
-                                }
-                            </li>
-                        </ul>
                     </div>
                 );
             });
@@ -308,45 +248,7 @@ class Requests extends React.Component<WebsiteContainerProps> {
                     </div>
                 }
                 {
-                    0 !== booleanStorageMappingJsx.length && !dataGeneration &&
-                    <span>
-                        <div key={customKey()} className="h1-box code-box-holder">
-                            <h1>
-                                {
-                                    this.translations.global_export_options
-                                }
-                            </h1>
-                            <ul key={customKey()} className="ul-description">
-                                <li>
-                                    <i
-                                        className="fas fa-file-alt button-action c-green"
-                                        onClick={(e) => this.saveToTxtFileAll()}
-                                    ></i>
-                                </li>
-                                <li>
-                                    {
-                                        this.translations.export_all_to_txt_file
-                                    }
-                                </li>
-                            </ul>
-                            <ul key={customKey()} className="ul-description">
-                                <li>
-                                    <i
-                                        className="fas fa-file-contract button-action c-red"
-                                        onClick={(e) => this.saveToTxtFileAllInfo()}
-                                    ></i>
-                                </li>
-                                <li>
-                                    {
-                                        this.translations.export_all_to_txt_file_data
-                                    }
-                                </li>
-                            </ul>
-                        </div>
-                        {
-                            booleanStorageMappingJsx
-                        }
-                    </span>
+                    0 !== booleanStorageMappingJsx.length && !dataGeneration && booleanStorageMappingJsx
                 }
                 <form style={{
                     display: 'none !important',

@@ -485,7 +485,7 @@ class Pagination extends React.Component {
         if (isNaN(start) || isNaN(end)) {
 
             if ('dev'==this.state.env) {
-                console.log(`Invalid value passed as key: currentPage. The current page returned NaN - not a number`);
+                console.error(`Invalid value passed as key: currentPage. The current page returned NaN - not a number`);
             }
 
             return null;

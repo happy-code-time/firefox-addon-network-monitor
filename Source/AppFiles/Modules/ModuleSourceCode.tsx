@@ -1,23 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import customKey from '../Functions/customKey';
+
 import getDerivedStateFromPropsCheck from '../Functions/getDerivedStateFromPropsCheck';
 
-class ModuleSourceCode extends Component {
+class ModuleSourceCode extends React.Component 
+{
 
-    public props: {
-        [key: string]: any;
+    public translations: {
+        [key: string]: any
     };
 
     public state: {
-        [key: string]: any;
+        [key: string]: any
     };
+
+    public props: {
+        [key: string]: any
+    };
+
+    public isFocus: any;
 
     public inputNode: any;
 
-    public displayLoading: boolean;
-
-    public isFocus: boolean;
+    public loadingDisplay: any;
 
     constructor(props) {
         super(props);
@@ -27,140 +33,27 @@ class ModuleSourceCode extends Component {
 
         this.state = {
             /**
-             * User
-             */
-            code: (props.code && typeof '8' == typeof props.code) ? props.code : undefined,
-            originalCode: (props.code && typeof '8' == typeof props.code) ? props.code : undefined,
-            displayLines: typeof true == typeof props.displayLines ? props.displayLines : false,
-            displayInput: typeof true == typeof props.displayInput ? props.displayInput : false,
-            inputPlaceholder: (props.inputPlaceholder && typeof '8' == typeof props.inputPlaceholder) ? props.inputPlaceholder : undefined,
-            displayLoading: false,
-            noData: props.noData ? props.noData : '',
-            codeCallback: props.codeCallback && 'function' == typeof props.codeCallback ? props.codeCallback : undefined,
-            /**
              * App
              */
             searchValue: '',
             plainValue: '',
             lines: [],
-            possibleAvailableTags: [
-                'a',
-                'abbr',
-                'address',
-                'area',
-                'article',
-                'aside',
-                'audio',
-                'b',
-                'base',
-                'bdi',
-                'bdo',
-                'blockquote',
-                'body',
-                'button',
-                'canvas',
-                'caption',
-                'cite',
-                'code',
-                'col',
-                'colgroup',
-                'data',
-                'datalist',
-                'dd',
-                'del',
-                'details',
-                'dfn',
-                'dialog',
-                'div',
-                'dl',
-                'dom-module',
-                'dom-repeat',
-                'dt',
-                'em',
-                'embed',
-                'fieldset',
-                'figure',
-                'footer',
-                'form',
-                'h1',
-                'h2',
-                'h3',
-                'h4',
-                'h5',
-                'h6',
-                'head',
-                'hgroup',
-                'hidden',
-                'html',
-                'i',
-                'iframe',
-                'img',
-                'input',
-                'ins',
-                'kbd',
-                'label',
-                'legend',
-                'li',
-                'link',
-                'main',
-                'map',
-                'mark',
-                'menu',
-                'menuitem',
-                'meta',
-                'nav',
-                'noscript',
-                'object',
-                'ol',
-                'optgroup',
-                'option',
-                'p',
-                'pre',
-                'progress',
-                's',
-                'script',
-                'section',
-                'select',
-                'small',
-                'source',
-                'span',
-                'strong',
-                'style',
-                'sub',
-                'summary',
-                'sup',
-                'svg',
-                'table',
-                'tbody',
-                'td',
-                'template',
-                'textarea',
-                'tfoot',
-                'th',
-                'time',
-                'title',
-                'tr',
-                'track',
-                'u',
-                'ul',
-                'var',
-                'video'
-            ],
-            attributes: [
-                'href',
-                'icon',
-                'rel',
-                'type'
-            ],
-            textMatcher: [
-                {
-                    text: ['setting'],
-                    color: 'red'
-                }
-            ]
+            loadingDisplay: true,
+            /**
+             * User
+             */
+            defaultClass: (props.defaultClass && typeof '8' == typeof props.defaultClass) ? props.defaultClass : 'rr-sourcecode',
+            displayLineNumber: typeof true === typeof props.displayLineNumber ? props.displayLineNumber : false,
+            code: (props.code && typeof '8' == typeof props.code) ? props.code : undefined,
+            originalCode: (props.code && typeof '8' == typeof props.code) ? props.code : undefined,
+            inputActive: typeof true == typeof props.inputActive ? props.inputActive : false,
+            inputPlaceholder: (props.inputPlaceholder && typeof '8' == typeof props.inputPlaceholder) ? props.inputPlaceholder : undefined,
+            inputCallback: props.inputCallback && 'function' == typeof props.inputCallback ? props.inputCallback : undefined,
+            inputNoDataText: props.inputNoDataText ? props.inputNoDataText : '',
+            loadingIcon: props.loadingIcon ? props.loadingIcon : '',
+            layout: (props.layout && typeof '8' == typeof props.layout && ['dark', 'light'].includes(props.layout)) ? props.layout : undefined
         };
 
-        this.displayLoading = (typeof true == typeof props.displayLoading) ? props.displayLoading : false;
         this.isFocus = false;
     }
 
@@ -171,34 +64,32 @@ class ModuleSourceCode extends Component {
      * @param {object} state 
      */
     static getDerivedStateFromProps(props, state) {
-        if (getDerivedStateFromPropsCheck(['code', 'displayLines', 'displayInput', 'inputPlaceholder', 'noData', 'codeCallback'], props, state)) {
+        if (getDerivedStateFromPropsCheck(['defaultClass', 'displayLineNumber', 'code', 'inputActive', 'inputPlaceholder', 'inputCallback', 'inputNoDataText', 'loadingIcon', 'layout'], props, state)) {
+
             return {
-                code: (props.code && typeof '8' == typeof props.code) ? props.code : undefined,
-                originalCode: (props.code && typeof '8' == typeof props.code) ? props.code : undefined,
-                displayLines: typeof true == typeof props.displayLines ? props.displayLines : false,
-                displayInput: typeof true == typeof props.displayInput ? props.displayInput : false,
+                defaultClass: (props.defaultClass && typeof '8' == typeof props.defaultClass) ? props.defaultClass : 'rr-sourcecode',
+                displayLineNumber: typeof true === typeof props.displayLineNumber ? props.displayLineNumber : false,
+                inputActive: typeof true == typeof props.inputActive ? props.inputActive : false,
                 inputPlaceholder: (props.inputPlaceholder && typeof '8' == typeof props.inputPlaceholder) ? props.inputPlaceholder : undefined,
-                displayLoading: false,
-                noData: props.noData ? props.noData : '',
-                codeCallback: props.codeCallback && 'function' == typeof props.codeCallback ? props.codeCallback : undefined,
+                inputCallback: props.inputCallback && 'function' == typeof props.inputCallback ? props.inputCallback : undefined,
+                inputNoDataText: props.inputNoDataText ? props.inputNoDataText : '',
+                loadingIcon: props.loadingIcon ? props.loadingIcon : '',
+                layout: (props.layout && typeof '8' == typeof props.layout && ['dark', 'light'].includes(props.layout)) ? props.layout : undefined
             };
         }
 
         return null;
     }
 
-
     componentDidMount() {
-        this.setState({
-            displayLoading: this.displayLoading
-        }, this.generateCode);
+        this.generateCode();
     }
 
-    codeCallback(code) {
-        const { codeCallback } = this.state;
+    inputCallback(e, code) {
+        const { inputCallback, searchValue } = this.state;
 
-        if (codeCallback) {
-            (codeCallback)(code);
+        if (inputCallback) {
+            (inputCallback)(e, searchValue, code);
         }
     }
 
@@ -220,13 +111,14 @@ class ModuleSourceCode extends Component {
      * Set value on change input field
      */
     setValue(e) {
+        e.persist();
         const { originalCode } = this.state;
         let value = e.target.value;
         let code: any = [];
 
         this.setState({
             searchValue: value,
-            displayLoading: this.displayLoading
+            loadingDisplay: this.loadingDisplay
         }, () => {
 
             if ('' == value) {
@@ -236,7 +128,7 @@ class ModuleSourceCode extends Component {
             else {
                 const lines = originalCode.split('\n');
                 value = value.trim();
-                
+
                 for (let x = 0; x <= lines.length - 1; x++) {
                     if (-1 !== lines[x].indexOf(value)) {
                         code.push(lines[x]);
@@ -247,9 +139,9 @@ class ModuleSourceCode extends Component {
             }
 
             /**
-             * User callback
+             * User inputCallback
              */
-            this.codeCallback(code);
+            this.inputCallback(e, code);
 
             this.setState({
                 code
@@ -258,398 +150,955 @@ class ModuleSourceCode extends Component {
     }
 
     generateCode() {
-        const { code, noData } = this.state;
-        const lines = [];
+        const { code, inputNoDataText, displayLineNumber } = this.state;
 
-        if (!code || 0 == code.length) {
-            return this.setState({
-                lines: [
-                    noData
-                ],
-                displayLoading: false
+        const generateCodeAsPromise = () => {
+            let masterCode = [];
+
+            return new Promise(resolve => {
+                const codeViaLine = code.split('\n');
+                let singleLineData = [];
+
+                for (let x = 0; x < codeViaLine.length; x++) {
+                    singleLineData = [];
+
+                    if ('' !== codeViaLine[x]) {
+
+                        singleLineData.push(
+                            {
+                                code: codeViaLine[x],
+                                class: 'no-match'
+                            }
+                        );
+
+                        // const singleItems = codeViaLine[x].split(' ');
+
+                        // let attribute = null;
+                        // let previusType = '';
+
+                        // for (let mrx = 0; mrx < singleItems.length; mrx++) {
+                        //     let characters = '';
+
+                        //     if ('' !== singleItems[mrx]) {
+                        //         const wordsCharacterSet = singleItems[mrx].split('');
+                        //         characters = '';
+
+                        //         for (let i = 0; i < wordsCharacterSet.length; i++) {
+                        //             let nextCharacter = (undefined !== wordsCharacterSet[i + 1]) ? wordsCharacterSet[i + 1] : undefined;
+
+                        //             if ('\t' == wordsCharacterSet[i]) {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: '\t',
+                        //                         class: 'tab'
+                        //                     }
+                        //                 );
+                        //             }
+                        //             else {
+                        //                 characters += wordsCharacterSet[i];
+                        //                 /**
+                        //                  * Tags matcher
+                        //                  */
+                        //                 const tagMatcher = this.tagsMatcher(characters, singleLineData, nextCharacter);
+                        //                 characters = tagMatcher.characters;
+                        //                 singleLineData = tagMatcher.singleLineData;
+
+                        //                 /**
+                        //                  * Tags attributes
+                        //                  */
+                        //                 if (characters.length) {
+                        //                     const attributesMatcher = this.attributesMatcher(characters, singleLineData, nextCharacter, attribute);
+                        //                     characters = attributesMatcher.characters;
+                        //                     singleLineData = attributesMatcher.singleLineData;
+                        //                     attribute = attributesMatcher.attribute;
+                        //                 }
+                        //             }
+                        //         }
+                        //     }
+
+                        //     /**
+                        //      * No match
+                        //      */
+                        //     if (characters.length) {
+
+                        //         /**
+                        //          * PHP dollar character
+                        //          */
+                        //         if (-1 !== characters.indexOf('$')) {
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: characters.substring(0, characters.indexOf('$')),
+                        //                     class: 'no-match php'
+                        //                 }
+                        //             );
+
+                        //             let variable = characters.substring(characters.indexOf('$'), characters.length);
+                        //             variable = variable.split('');
+
+                        //             let items = '$';
+                        //             let itemsMatch = 0;
+
+                        //             for (let x = 1; x <= variable.length - 1; x++) {
+                        //                 if (/^[a-zA-Z]+$/.test(variable[x])) {
+                        //                     items += variable[x];
+                        //                 }
+                        //                 else {
+                        //                     itemsMatch = x;
+                        //                     break;
+                        //                 }
+                        //             }
+
+                        //             if (items.length) {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: items,
+                        //                         class: 'variable-dollar'
+                        //                     }
+                        //                 );
+                        //             }
+
+                        //             if (itemsMatch) {
+                        //                 characters = characters.substring(itemsMatch, variable.length);
+                        //             }
+
+                        //             else {
+                        //                 characters = '';
+                        //             }
+
+                        //             previusType = 'php';
+                        //         }
+
+                        //         /**
+                        //          * Functions matcher
+                        //          */
+                        //         if (-1 !== characters.indexOf('(') && -1 !== characters.indexOf(')')) {
+                        //             const fnName = characters.substring(0, characters.indexOf('('));
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: fnName,
+                        //                     class: 'functionName'
+                        //                 }
+                        //             );
+
+                        //             const attr = characters.substring(fnName.length + 1, characters.indexOf(')'));
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: '(',
+                        //                     class: 'bracket bracket-left'
+                        //                 }
+                        //             );
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: attr,
+                        //                     class: 'functionArguments'
+                        //                 }
+                        //             );
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: ')',
+                        //                     class: 'bracket bracket-right'
+                        //                 }
+                        //             );
+
+                        //             characters = characters.substring(fnName.length + 1 + attr.length + 1, characters.length);
+                        //         }
+
+                        //         if (-1 !== characters.indexOf('(')) {
+                        //             const fnName = characters.substring(0, characters.indexOf('('));
+                        //             previusType = 'function';
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: fnName,
+                        //                     class: 'functionName'
+                        //                 }
+                        //             );
+
+                        //             const attr = characters.substring(fnName.length + 1, characters.length);
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: '(',
+                        //                     class: 'bracket bracket-left'
+                        //                 }
+                        //             );
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: attr,
+                        //                     class: 'functionArguments'
+                        //                 }
+                        //             );
+
+                        //             characters = '';
+                        //         }
+
+                        //         /**
+                        //          * Match everything as function arguments to match ")"
+                        //          */
+                        //         if ('function' == previusType) {
+
+                        //             if (-1 !== characters.indexOf('))')) {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: characters.substring(0, characters.indexOf(')') + 1),
+                        //                         class: 'functionArguments'
+                        //                     }
+                        //                 );
+
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: ')',
+                        //                         class: 'bracket bracket-right'
+                        //                     }
+                        //                 );
+
+                        //                 characters = characters.substring(characters.indexOf(')') + 2, characters.length);
+                        //                 previusType = '';
+                        //             }
+
+                        //             if (-1 !== characters.indexOf(')')) {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: characters.substring(0, characters.indexOf(')')),
+                        //                         class: 'functionArguments'
+                        //                     }
+                        //                 );
+
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: ')',
+                        //                         class: 'bracket bracket-right'
+                        //                     }
+                        //                 );
+
+                        //                 characters = characters.substring(characters.indexOf(')') + 1, characters.length);
+                        //                 previusType = '';
+                        //             }
+                        //             else {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: characters,
+                        //                         class: 'functionArguments'
+                        //                     }
+                        //                 );
+
+                        //                 characters = '';
+                        //                 previusType = 'function';
+                        //             }
+                        //         }
+
+                        //         /**
+                        //          * Css or objects
+                        //          */
+                        //         if (-1 !== characters.indexOf('{')) {
+                        //             const pref = characters.substring(0, characters.indexOf('{'));
+                        //             characters = characters.substring(pref.length, characters.length);
+
+                        //             if (-1 !== pref.indexOf('=')) {
+
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: pref.substring(0, pref.indexOf('=')),
+                        //                         class: 'variableName'
+                        //                     }
+                        //                 );
+
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: '=',
+                        //                         class: 'equal'
+                        //                     }
+                        //                 );
+                        //             }
+
+                        //             if (-1 !== characters.indexOf('{')) {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: characters.substring(0, characters.indexOf('{')),
+                        //                         class: 'no-match'
+                        //                     }
+                        //                 );
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: '{',
+                        //                         class: 'bracket bracket-left'
+                        //                     }
+                        //                 );
+
+                        //                 characters = characters.substring(characters.indexOf('{') + 1, characters.length);
+                        //                 previusType = 'bracketOpen';
+                        //             }
+
+                        //             if (-1 !== characters.indexOf('}') && 'bracketOpen' == previusType) {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: characters.substring(0, characters.indexOf('}')),
+                        //                         class: 'bracketValue'
+                        //                     }
+                        //                 );
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: '}',
+                        //                         class: 'bracket bracket-right'
+                        //                     }
+                        //                 );
+
+                        //                 characters = characters.substring(characters.indexOf('}') + 1, characters.length);
+                        //                 previusType = '';
+                        //             }
+                        //         }
+
+                        //         if (-1 !== characters.indexOf('}')) {
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: characters.substring(0, characters.indexOf('}')),
+                        //                     class: 'no-match'
+                        //                 }
+                        //             );
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: '}',
+                        //                     class: 'bracket bracket-right'
+                        //                 }
+                        //             );
+
+                        //             characters = characters.substring(characters.indexOf('}') + 1, characters.length);
+                        //             previusType = '';
+                        //         }
+
+                        //         if (-1 !== characters.indexOf('=')) {
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: characters.substring(0, characters.indexOf('=')),
+                        //                     class: 'variableName'
+                        //                 }
+                        //             );
+
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: '=',
+                        //                     class: 'equal'
+                        //                 }
+                        //             );
+
+                        //             characters = characters.substring(characters.indexOf('=') + 1, characters.length);
+                        //         }
+
+                        //         if (')' == characters) {
+                        //             singleLineData.push(
+                        //                 {
+                        //                     code: ')',
+                        //                     class: 'bracket bracket-right'
+                        //                 }
+                        //             );
+                        //             characters = '';
+                        //             previusType = '';
+                        //         }
+
+                        //         if (characters.length) {
+
+                        //             const lastMatch = [
+                        //                 {
+                        //                     words: ['import', 'from', 'require', 'use', 'return', 'return;', 'var', 'let', 'const', 'export default', 'default', 'extends', 'interface'],
+                        //                     class: 'key'
+                        //                 }
+                        //             ];
+
+                        //             for (let x = 0; x <= lastMatch.length - 1; x++) {
+                        //                 const wordsToCheck = lastMatch[x].words;
+
+                        //                 for (let i = 0; i <= wordsToCheck.length - 1; i++) {
+                        //                     if (wordsToCheck[i] === characters) {
+                        //                         singleLineData.push(
+                        //                             {
+                        //                                 code: characters,
+                        //                                 class: lastMatch[x].class
+                        //                             }
+                        //                         );
+                        //                         characters = '';
+                        //                         break;
+                        //                     }
+                        //                 }
+                        //             }
+
+                        //             if (characters.length) {
+                        //                 singleLineData.push(
+                        //                     {
+                        //                         code: characters,
+                        //                         class: 'no-match'
+                        //                     }
+                        //                 );
+                        //             }
+
+                        //             previusType = '';
+                        //         }
+                        //     }
+
+                        //     /**
+                        //      * Push the same char as splitted with
+                        //      */
+                        //     singleLineData.push(
+                        //         {
+                        //             code: ' ',
+                        //             class: 'space'
+                        //         }
+                        //     );
+                        // }
+                    }
+                    /**
+                     * Push the same char as splitted with
+                     */
+                    singleLineData.push(
+                        {
+                            code: '\n',
+                            class: 'enter'
+                        }
+                    );
+
+                    masterCode.push(singleLineData);
+                }
+
+                resolve(masterCode);
             });
-        }
-
-        const codeViaLine = code.split('\n');
-
-        codeViaLine.map((codeLine, indexRoot) => {
-
-            lines.push(
-                [
-                    <li key={customKey()}>
-                        {'\n'}
-                    </li>
-                ]
-            );
-
-            const data = this.generateCodeForSingleLine(codeLine, indexRoot);
-
-            if (data) {
-                lines.push(data);
-            }
-        });
+        };
 
         this.setState({
-            displayLoading: false,
-            lines
-        });
+            loadingDisplay: true
+        }, async () => {
+            if (!code || 0 == code.length) {
+                return this.setState({
+                    lines: inputNoDataText,
+                    loadingDisplay: false
+                });
+            }
+
+            let masterCode: any = await generateCodeAsPromise();
+            const codeJsx = [];
+    
+            for (let x = 0; x < masterCode.length; x++) {
+                const singleLineArrays = masterCode[x];
+                const tempHolder = [];
+    
+                for (let mrx = 0; mrx < singleLineArrays.length; mrx++) {
+                    tempHolder.push(
+                        <span key={customKey()} className={singleLineArrays[mrx].class ? singleLineArrays[mrx].class : ''}>
+                            {
+                                singleLineArrays[mrx].code
+                            }
+                        </span>
+                    );
+                }
+    
+                codeJsx.push(
+                    <div
+                        key={customKey()}
+                        className={displayLineNumber ? 'single-code-line flex' : 'single-code-line'}
+                    >
+                        {
+                            displayLineNumber &&
+                            <div className="line-number">
+                                {
+                                    x + 1
+                                }
+                            </div>
+                        }
+                        <div className="line-code">
+                            {
+                                tempHolder
+                            }
+                        </div>
+                    </div>
+                );
+            }
+    
+            this.setState({
+                loadingDisplay: false,
+                lines: codeJsx,
+            });
+        })
     }
 
-    generateCodeForSingleLine(string, indexRoot) {
-        let { possibleAvailableTags, displayLines, textMatcher } = this.state;
+    tagsMatcher(characters, singleLineData, nextCharacter) {
 
-        possibleAvailableTags = possibleAvailableTags.sort();
-        possibleAvailableTags = possibleAvailableTags.reverse();
-
-        if (!string || !string.length) {
-            return null;
+        /**
+         * Unknown tag name check
+         * - possible match for </custom-tag-name>
+         */
+        if (0 === characters.indexOf('</') && '>' == nextCharacter) {
+            singleLineData.push(
+                {
+                    code: '<',
+                    class: 'tagStart'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: '/',
+                    class: 'slash'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: characters.substring(2, characters.length),
+                    class: 'tagName'
+                }
+            );
+            characters = '';
         }
 
-        const wordsList = string.split(' ');
-        const codes = [];
+        if ('>' == characters.substring(characters.length - 1, characters.length) && !nextCharacter && -1 == characters.indexOf('<')) {
 
-        const getSingleTagFromText = (singleTag, tagName, singleWord) => {
-            singleWord = singleWord.split('');
-            let word = '';
-
-            for (let mrx = 0; mrx <= singleWord.length - 1; mrx++) {
-                word += singleWord[mrx];
-
-                if (word === singleTag) {
-
-                    codes.push(
-                        {
-                            type: 'tag',
-                            match: tagName,
-                            code: `${singleTag}`,
-                            color: 'tag_color'
-                        }
-                    );
-
-                    singleWord = singleWord.join('');
-                    singleWord = singleWord.substring(singleTag.length, singleWord.length);
-                    singleWord = singleWord.split('');
-
-                    if (!singleWord.length) {
-                        return '';
-                    }
-                }
-            }
-
-            if (!singleWord.length) {
-                return '';
-            }
-
-            if (singleWord.length) {
-                return singleWord.join('');
-            }
-        }
-
-        wordsList.map(singleWord => {
-            const tempCopy = singleWord;
-
-            if (singleWord) {
-                for (let x = 0; x <= possibleAvailableTags.length - 1; x++) {
-
-                    if (!singleWord.length) {
-                        break;
-                    }
-
-                    const tagName = possibleAvailableTags[x];
-                    const tag = `<${tagName}>`;
-                    const tagClose = `</${tagName}>`;
-                    const tagOpen = `<${tagName} `;
-                    const tagEnd = `/>`;
-                    const tags = [tag, tagClose, tagOpen, tagEnd];
-
-                    for (let i = 0; i <= tags.length - 1; i++) {
-                        const singleTag = tags[i];
-                        singleWord = getSingleTagFromText(singleTag, tagName, singleWord);
-
-                        if (!singleWord.length) {
-                            break;
-                        }
-                    }
-                }
-
-
-                /**
-                 * Check for attributes in single word
-                 */
-                const checkForAttributesStart = (singleWord) => {
-                    const attr = `="`;
-                    let singleWordItems = singleWord.split(attr);
-
-                    /**
-                     * Multiple values
-                     */
-                    if (1 < singleWordItems.length) {
-                        singleWordItems.map((value, index) => {
-
-                            if (0 == index) {
-
-                                codes.push(
-                                    {
-                                        type: 'attributeName',
-                                        code: value
-                                    }
-                                );
-                                codes.push(
-                                    {
-                                        type: 'attributeEqual',
-                                        code: '='
-                                    }
-                                );
-                                codes.push(
-                                    {
-                                        type: 'attributeStringStart',
-                                        code: '"',
-                                    }
-                                );
-                            }
-                            else {
-                                /**
-                                 * Single value as possible end
-                                 */
-                                if (-1 !== value.indexOf('">') && '">' == value.substring(value.length - 2, value.length)) {
-
-                                    codes.push(
-                                        {
-                                            type: 'attributeLast',
-                                            code: value.substring(0, value.length - 2),
-                                            value: value.substring(0, value.length - 2)
-                                        }
-                                    );
-
-                                    codes.push(
-                                        {
-                                            type: 'tagStringEnd',
-                                            code: '"',
-                                            value: '"'
-                                        }
-                                    );
-
-                                    codes.push(
-                                        {
-                                            type: 'tagEnd',
-                                            code: '>',
-                                            value: '>'
-                                        }
-                                    );
-                                }
-
-                                /**
-                                 * Single value as possible end
-                                 */
-                                if (-1 !== value.indexOf('"') && '"' == value.substring(value.length - 1, value.length)) {
-                                    codes.push(
-                                        {
-                                            type: 'attributeValueEnd',
-                                            code: value.substring(0, value.length - 1),
-                                            value: value.substring(0, value.length - 1)
-                                        }
-                                    );
-
-                                    codes.push(
-                                        {
-                                            type: 'tagStringEnd',
-                                            code: '"',
-                                            value: '"'
-                                        }
-                                    );
-                                }
-
-                                /**
-                                 * Single value not as end
-                                 */
-                                if ('">' !== value.substring(value.length - 2, value.length) && '"' !== value.substring(value.length - 1, value.length)) {
-                                    codes.push(
-                                        {
-                                            type: 'attributeValue',
-                                            code: value,
-                                            value
-                                        }
-                                    );
-                                }
-                            }
-                        });
-                    }
-                    /**
-                     * Single values
-                     */
-                    else {
-                        let value = singleWordItems.join('');
-
-                        /**
-                         * Single value as possible end
-                         */
-                        if (-1 !== value.indexOf('">') && '">' == value.substring(value.length - 2, value.length)) {
-                            codes.push(
-                                {
-                                    type: 'attributeLast2',
-                                    code: value.substring(0, value.length - 2),
-                                    value: value.substring(0, value.length - 2)
-                                }
-                            );
-
-                            codes.push(
-                                {
-                                    type: 'tagStringEnd2',
-                                    code: '"',
-                                    value: '"'
-                                }
-                            );
-
-                            codes.push(
-                                {
-                                    type: 'tagEnd2',
-                                    code: '>',
-                                    value: '>'
-                                }
-                            );
-                        }
-
-                        /**
-                         * Single value as possible end
-                         */
-                        else if (-1 !== value.indexOf('"') && '"' == value.substring(value.length - 1, value.length)) {
-                            codes.push(
-                                {
-                                    type: 'attributeValueEnd2',
-                                    code: value.substring(0, value.length - 1),
-                                    value: value.substring(0, value.length - 1)
-                                }
-                            );
-
-                            codes.push(
-                                {
-                                    type: 'tagStringEnd2',
-                                    code: '"',
-                                    value: '"'
-                                }
-                            );
-                        }
-
-                        else {
-                            /**
-                             * It is possible then a tag value not in the list
-                             * so not we have to split them by ="
-                             */
-                            if('<' == value.charAt(0)){
-                                codes.push(
-                                    {
-                                        type: 'tag',
-                                        code: value,
-                                        value
-                                    }
-                                );
-                            }
-                            else{
-                                codes.push(
-                                    {
-                                        type: 'attributeValue',
-                                        code: value,
-                                        value
-                                    }
-                                );
-                            }
-                        }
-                    }
-
-                    if (typeof [] == typeof singleWord) {
-                        return singleWord.join('');
-                    }
-
-                    return singleWord;
-                }
-
-                if (tempCopy == singleWord) {
-
-                    codes.push(
-                        {
-                            type: 'space',
-                            code: ` `,
-                        }
-                    );
-
-                    /**
-                     * Extract attributes
-                     */
-                    if (singleWord) {
-                        singleWord = checkForAttributesStart(singleWord);
-                    }
-                }
-                else {
-                    if (singleWord) {
-                        singleWord = checkForAttributesStart(singleWord);
-                    }
-                }
-            }
-            else {
-                codes.push(
+            if ('=' == characters.substring(0, characters.length - 1)) {
+                singleLineData.push(
                     {
-                        type: 'space',
-                        code: ` `,
+                        code: '=',
+                        class: 'equal'
+                    }
+                );
+                singleLineData.push(
+                    {
+                        code: '>',
+                        class: 'tagEnd'
                     }
                 );
             }
-        });
-
-        const jsx = [];
-
-        codes.map(object => {
-            jsx.push(
-                <span className={object.type ? object.type : ''} key={customKey()}>
+            else {
+                singleLineData.push(
                     {
-                        object.code
+                        code: characters.substring(0, characters.length - 1),
+                        class: 'tagName'
                     }
-                </span>
-            );
-        });
+                );
+                singleLineData.push(
+                    {
+                        code: '>',
+                        class: 'tagEnd'
+                    }
+                );
+            }
+            characters = '';
+        }
 
-        if (displayLines) {
-            return (
-                <ul className="flex">
-                    <li title={`Line ${indexRoot + 1}`} className="line-number">
-                        {
-                            indexRoot + 1
-                        }
-                    </li>
-                    <li className="code">
-                        {
-                            jsx
-                        }
-                    </li>
-                </ul>
+        /**
+         * Unknown tag name check
+         * - possible match for <custom-tag-name> without attributes
+         */
+        if ('<' == characters.charAt(0) && !nextCharacter) {
+            singleLineData.push(
+                {
+                    code: '<',
+                    class: 'tagStart'
+                }
+            );
+
+            if ('>' == characters.substring(characters.length - 1, characters.length)) {
+                singleLineData.push(
+                    {
+                        code: characters.substring(1, characters.length - 1),
+                        class: 'tagName'
+                    }
+                );
+                singleLineData.push(
+                    {
+                        code: '>',
+                        class: 'tagEnd'
+                    }
+                );
+                characters = '';
+            }
+            else {
+                singleLineData.push(
+                    {
+                        code: characters.substring(1, characters.length),
+                        class: 'tagName'
+                    }
+                );
+                characters = '';
+            }
+        }
+
+        if ('<' == characters.charAt(0) && '>' == characters.charAt(characters.length - 1)) {
+            singleLineData.push(
+                {
+                    code: '<',
+                    class: 'tagStart'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: characters.substring(1, characters.length - 1),
+                    class: 'tagName'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: '>',
+                    class: 'tagEnd'
+                }
+            );
+            characters = '';
+        }
+
+        if (-1 !== characters.indexOf('<') && '>' == characters.charAt(characters.length - 1)) {
+            const dataToCheck = characters.substring(0, characters.indexOf('<'));
+
+            singleLineData = this.extractNotFiltered(singleLineData, dataToCheck);
+
+            singleLineData.push(
+                {
+                    code: '<',
+                    class: 'tagStart'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: characters.substring(characters.indexOf('<') + 1, characters.length - 1),
+                    class: 'tagName'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: '>',
+                    class: 'tagEnd'
+                }
+            );
+            characters = '';
+        }
+
+        if (-1 !== characters.indexOf('</') && '>' == characters.charAt(characters.length - 1)) {
+            singleLineData.push(
+                {
+                    code: characters.substring(0, characters.indexOf('</') + 1),
+                    class: 'not-filtered-data'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: '</',
+                    class: 'tagStart'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: characters.substring(characters.indexOf('</') + 2, characters.length - 1),
+                    class: 'tagName'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: '>',
+                    class: 'tagEnd'
+                }
+            );
+            characters = '';
+        }
+
+        /**
+         * Tag check
+         * Check if is closing tag, and the closing tag are pushed previously 
+         */
+        if ('>' == characters) {
+            singleLineData.push(
+                {
+                    code: '>',
+                    class: 'tagEnd'
+                }
+            );
+            characters = '';
+        }
+
+
+        return {
+            characters,
+            singleLineData
+        }
+    }
+
+    extractNotFiltered(singleLineData, dataToCheck) {
+
+        if (-1 !== dataToCheck.indexOf('="')) {
+
+            singleLineData.push(
+                {
+                    code: dataToCheck.substring(0, dataToCheck.indexOf('="')),
+                    class: 'attributeName'
+                }
+            );
+
+            singleLineData.push({
+                code: '=',
+                class: 'equal attribute-equal'
+            });
+
+            singleLineData.push({
+                code: '"',
+                class: 'quote-double quote-double-start'
+            });
+
+            if ('">' == dataToCheck.substring(dataToCheck.length - 2, dataToCheck.length)) {
+                singleLineData.push(
+                    {
+                        code: dataToCheck.substring(dataToCheck.indexOf('="') + 2, dataToCheck.length - 2),
+                        class: 'value'
+                    }
+                );
+
+                singleLineData.push({
+                    code: "'",
+                    class: 'quote-single quote-single-end'
+                });
+
+                singleLineData.push({
+                    code: ">",
+                    class: 'tagEnd'
+                });
+            }
+            else {
+                singleLineData.push(
+                    {
+                        code: dataToCheck.substring(dataToCheck.indexOf('="'), dataToCheck.length),
+                        class: 'value'
+                    }
+                );
+            }
+
+            return singleLineData;
+        }
+
+        if (-1 !== dataToCheck.indexOf("='")) {
+
+            singleLineData.push(
+                {
+                    code: dataToCheck.substring(0, dataToCheck.indexOf("='")),
+                    class: 'attributeName'
+                }
+            );
+
+            singleLineData.push({
+                code: '=',
+                class: 'equal attribute-equal'
+            });
+
+            singleLineData.push({
+                code: "'",
+                class: 'quote-single quote-single-start'
+            });
+
+            if ("'>" == dataToCheck.substring(dataToCheck.length - 2, dataToCheck.length)) {
+                singleLineData.push(
+                    {
+                        code: dataToCheck.substring(dataToCheck.indexOf("='") + 2, dataToCheck.length - 2),
+                        class: 'value'
+                    }
+                );
+
+                singleLineData.push({
+                    code: "'",
+                    class: 'quote-single quote-single-end'
+                });
+
+                singleLineData.push({
+                    code: ">",
+                    class: 'tagEnd'
+                });
+            }
+            else {
+                singleLineData.push(
+                    {
+                        code: dataToCheck.substring(dataToCheck.indexOf("='"), dataToCheck.length),
+                        class: 'value'
+                    }
+                );
+            }
+
+            return singleLineData;
+        }
+
+        if (-1 !== dataToCheck.indexOf('>')) {
+            singleLineData.push(
+                {
+                    code: dataToCheck.substring(dataToCheck.indexOf(">"), dataToCheck.length - 1),
+                    class: 'value'
+                }
+            );
+            singleLineData.push({
+                code: ">",
+                class: 'tagEnd'
+            });
+
+            return singleLineData;
+        }
+
+        if (-1 !== dataToCheck.indexOf('=')) {
+
+            singleLineData.push(
+                {
+                    code: dataToCheck.substring(0, dataToCheck.indexOf('=')),
+                    class: 'variableName'
+                }
+            );
+
+            singleLineData.push(
+                {
+                    code: '=',
+                    class: 'equal'
+                }
+            );
+
+            dataToCheck = dataToCheck.substring(dataToCheck.indexOf('=') + 1, dataToCheck.length);
+        }
+
+        if (-1 !== dataToCheck.indexOf('{')) {
+            singleLineData.push(
+                {
+                    code: dataToCheck.substring(0, dataToCheck.indexOf('{')),
+                    class: 'no-match'
+                }
+            );
+            singleLineData.push(
+                {
+                    code: '{',
+                    class: 'bracket bracket-right'
+                }
+            );
+
+            dataToCheck = dataToCheck.substring(dataToCheck.indexOf('{') + 1, dataToCheck.length);
+        }
+
+        if (dataToCheck.length) {
+            singleLineData.push(
+                {
+                    code: dataToCheck,
+                    class: 'not-filtered'
+                }
             );
         }
 
-        return (
-            <ul>
-                <li>
-                    {
-                        jsx
-                    }
-                </li>
-            </ul>
-        );
+        return singleLineData;
+    }
+
+    attributesMatcher(characters, singleLineData, nextCharacter, attribute) {
+        /**
+         * Check if is attribute or string assigment
+         * as variable
+         * 
+         * (attribute) href="fsdfdsfdfsd"
+         * (variable) x="dsadasdsadsa"
+         */
+        let value = characters.substring(0, characters.indexOf('='));
+
+        if (1 !== characters.indexOf('="') && '"' == nextCharacter && 'start' !== attribute && '' !== value) {
+            attribute = 'start';
+
+            singleLineData.push({
+                code: value,
+                class: 'attributeName'
+            });
+
+            singleLineData.push({
+                code: '=',
+                class: 'equal attribute-equal'
+            });
+
+            singleLineData.push({
+                code: '"',
+                class: 'quote-double quote-double-start'
+            });
+
+            characters = '';
+        }
+
+        /**
+         * Example text: re a bug in some browsers where doing "Select ="" (CTRL+A and CMD+A) s
+         * 
+         * catching here: "Select ="" <- catching closing last tag
+         */
+        if ('"' == characters && undefined == nextCharacter) {
+            attribute = 'end';
+
+            singleLineData.push({
+                code: '"',
+                class: 'quote-double quote-double-end'
+            });
+
+            characters = '';
+        }
+
+        /**
+         * If the attribute process started but not finished
+         * and is a space between attributes
+         */
+        if (undefined == nextCharacter && 'start' == attribute && '"' !== characters.substring(characters.length - 1, characters.length)) {
+
+            /**
+             * If the value has a quoute on the first place
+             * example: <meta name=""viewport" content=""width=device-width, initial-scale=1.0,  maximum-scale=5.0"> 
+             * 
+             * the: content=" are pushed as parent 
+             * 
+             * now the value "width=device-width has the 2 quote, we have to ignore this quote
+             */
+            if ('"' == characters.charAt(0)) {
+                characters = characters.substring(1, characters.length);
+            }
+
+            singleLineData.push({
+                code: characters,
+                class: 'attributeValue'
+            });
+
+            characters = '';
+        }
+
+        /**
+         * Catching now values with space
+         * 
+         * title="David Janitzek"
+         * 
+         * catching value: Janitzek"
+         */
+        if ('"' == characters.substring(characters.length - 1, characters.length) && 2 <= characters.length && 'start' == attribute) {
+            attribute = 'end';
+
+            if ('"' == characters.charAt(0)) {
+                characters = characters.substring(1, characters.length);
+            }
+
+            singleLineData.push({
+                code: characters.substring(0, characters.length - 1),
+                class: 'attributeValue'
+            });
+
+            singleLineData.push({
+                code: '"',
+                class: 'quote-double quote-double-end'
+            });
+
+            characters = '';
+        }
+
+        return {
+            characters,
+            singleLineData,
+            attribute
+        }
     }
 
     render() {
-        const { lines, displayLoading, displayInput, inputPlaceholder, searchValue } = this.state;
-
-        if (displayLoading) {
-            return (
-                <div className='loading'>
-                    <div className='loading-dots'></div>
-                </div>
-            );
-        }
+        const { defaultClass, layout, lines, loadingDisplay, loadingIcon, inputActive, inputPlaceholder, searchValue } = this.state;
 
         return (
-            <div className="Code">
+            <div className={`${defaultClass} ${layout}`}>
                 {
-                    displayInput &&
+                    loadingDisplay && loadingIcon
+                }
+                {
+                    inputActive &&
                     <div className="search">
                         <input
                             className="input"
@@ -663,17 +1112,11 @@ class ModuleSourceCode extends Component {
                         />
                     </div>
                 }
-                {
-                    lines.map(array => {
-                        return (
-                            <span key={customKey()}>
-                                {
-                                    array
-                                }
-                            </span>
-                        )
-                    })
-                }
+                <div className='code'>
+                    {
+                        lines
+                    }
+                </div>
             </div>
         );
     }

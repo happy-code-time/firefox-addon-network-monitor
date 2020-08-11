@@ -5,6 +5,13 @@
   margin: 0;
   position: relative;
 
+
+  .url-action{
+    display: inline-block;
+    margin: 10px 10px 0 10px;
+    cursor: pointer;
+  }
+
   .code-box-holder{
     width: calc(100% - 20px) !important;
     margin: 10px 10px 20px 10px !important;
@@ -55,7 +62,6 @@
     min-height: 30px;
     line-height: 25px;
     text-align: left;
-    border-bottom: 1px solid rgba(69, 69, 69, .1);
     margin:0;
     padding:0;
 

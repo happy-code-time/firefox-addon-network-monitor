@@ -116,16 +116,13 @@ class App extends React.Component {
                   data={
                     [
                       {
-                        attributes: {
-                          title: this.translations.menu_title_home,
-                        },
                         text: this.translations.menu_text_home,
                         icon: <i className='fas fa-user' />,
                         href: `${addonPrefixPopup()}#/`,
                       },
                       {
                         text: this.translations.menu_text_requests,
-                        icon: <i className='fas fa-globe-americas' />,
+                        icon: <i className='fas fa-wifi' />,
                         href: `${addonPrefixPopup()}#/requests`,
                       }
                     ]
@@ -136,6 +133,7 @@ class App extends React.Component {
           }
           headerData={
             <div>
+              <ModuleLanguages/>
               <ModulePopupBoxLinks
                 location='popup'
                 icon={<i className='fas fa-external-link-alt' />}
@@ -164,7 +162,6 @@ class App extends React.Component {
                   ]
                 }
               />
-              <ModuleLanguages/>
             </div>
           }
           contentData={
