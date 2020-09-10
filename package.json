@@ -1,6 +1,6 @@
 {
   "name": "networkmonitor",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Network Monitor",
   "scripts": {
     "compile": "./node_modules/.bin/gulp compile",
