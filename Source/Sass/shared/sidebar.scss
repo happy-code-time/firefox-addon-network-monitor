@@ -38,10 +38,6 @@
     .version {
       color: rgba(69,69,69,.7);
 
-      .name{
-        color: rgba(69,69,69,1);
-      }
-
       .name,
       i {
         line-height: 30px;
@@ -53,6 +49,11 @@
         word-wrap: none;
         white-space: nowrap;
         text-overflow: ellipsis;
+      }
+
+      .name{
+        color: rgba(69,69,69,1);
+        overflow: hidden;
       }
 
       i{
